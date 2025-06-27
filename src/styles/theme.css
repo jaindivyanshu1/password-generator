@@ -1,0 +1,19 @@
+:root {
+  --primary-1: #DDE6ED;
+  --primary-2: #9DB2BF;
+  --primary-3: #526D82;
+  --primary-4: #27374D;
+  --text-color: #ffffff;
+  --error-color: #DA6C6C;
+  --success-color: #7AE2CF;
+  --font-size: 16px;
+  --font-weight: 400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--primary-1);
+  color: var(--text-color);
+}
