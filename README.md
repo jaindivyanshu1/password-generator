@@ -2,7 +2,7 @@
 
 A modern, responsive password generator built with React and TypeScript, supporting IndexedDB to store previously generated passwords. Users can select password length, character set, and view a history of generated passwords.
 
-![Flow Diagram](./Flow_Diag.png)
+![Flow Diagram](./public/Flow_Diag.png)
 
 ---
 
