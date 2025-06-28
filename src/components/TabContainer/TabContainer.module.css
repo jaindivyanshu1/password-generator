@@ -1,8 +1,8 @@
 .container {
   background-color: var(--primary-2);
-  border-radius: 8px;
+  border-radius: var(--medium-br);
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  padding: 16px;
+  padding: var(--four);
   width: 90%;
   max-width: 400px;
 }
@@ -10,15 +10,15 @@
 .tabSelector {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 16px;
+  margin-bottom: var(--four);
 }
 
 button {
   border: none;
   background-color: var(--primary-3);
   color: var(--text-color);
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: var(--two) var(--four);
+  border-radius: var(--small-br);
   cursor: pointer;
 }
 
@@ -28,5 +28,5 @@ button {
 }
 
 .tabContent {
-  margin-top: 12px;
+  margin-top: var(--three);
 }

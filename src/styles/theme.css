@@ -1,4 +1,5 @@
 :root {
+  /*Color*/
   --primary-1: #DDE6ED;
   --primary-2: #9DB2BF;
   --primary-3: #526D82;
@@ -6,8 +7,26 @@
   --text-color: #ffffff;
   --error-color: #DA6C6C;
   --success-color: #44A4B1;
-  --font-size: 16px;
-  --font-weight: 400;
+
+  /*Font Size*/
+  --small-fs: 14px;
+  --medium-fs: 16px;
+
+  /*Font Weight*/
+  --small-fw: 400;
+  --medium-fw: 500;
+  --large-fw: 600;
+  --extra-large-fw: 700;
+
+  /*Border radius*/
+  --small-br: 4px;
+  --medium-br: 8px;
+
+  /*Gapping*/
+  --one: 4px;
+  --two: 8px;
+  --three: 12px;
+  --four: 16px;
 }
 
 body {
