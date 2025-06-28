@@ -1,69 +1,60 @@
-# React + TypeScript + Vite
+# 🔒 Password Generator App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive password generator built with React and TypeScript, supporting IndexedDB to store previously generated passwords. Users can select password length, character set, and view a history of generated passwords.
 
-Currently, two official plugins are available:
+![Flow Diagram](./flow-diagram.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📄 Project Description
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This application allows users to generate random secure passwords based on configurable criteria including length, character type (alphabets, numbers, symbols), and stores these generated passwords using the browser's IndexedDB. It ensures no duplicate password is stored, by checking existing passwords before saving. The app is fully responsive and theme-driven to support modern devices.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🏷️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- React (TypeScript)
+- Vite
+- IndexedDB (via idb)
+- CSS Modules
+- HTML5 & modern JavaScript
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧮 Algorithm Used
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Random password generation** using a customizable character pool
+- **Uniqueness guarantee** by checking generated passwords against IndexedDB records
+- **Retry loop** to regenerate random strings if duplicates are found, with a cap on maximum attempts for safety
+- **Loader logic** to provide feedback during async operations
+
+---
+
+## 🗂️ Flow
+
+1. User navigates to **Password Generator** tab  
+   → enters password length  
+   → selects options (alphabets/numbers/symbols)  
+   → clicks Generate  
+   → shows loader  
+   → checks if password exists in IndexedDB  
+   → if not found, saves password and displays it  
+   → if found, regenerates until unique
+
+2. User navigates to **Password List** tab  
+   → fetches all stored passwords from IndexedDB  
+   → shows loader  
+   → displays the list
+
+---
+
+## 📁 Project Files
+
+- `src/` → React components and logic  
+- `services/indexedDB.ts` → IndexedDB storage layer  
+- `styles/` → theme & CSS Modules  
+- `public/flow-diagram.png` → stores the app flow diagram (add your actual diagram image in this path)
+
+---
+
