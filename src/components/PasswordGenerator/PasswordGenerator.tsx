@@ -1,7 +1,7 @@
 import { useState } from "react";
-import styles from "./PasswordGenerator.module.css";
-import { savePassword } from "../../services/indexedDB";
+import { savePassword, getAllPasswords } from "../../services/indexedDB";
 import { Loader } from "../Loader/Loader";
+import styles from "./PasswordGenerator.module.css";
 
 export function PasswordGenerator() {
   const [length, setLength] = useState<number>(8);
@@ -17,6 +17,11 @@ export function PasswordGenerator() {
       return;
     }
 
+    if (length < 8 || length >120){
+      alert("Please enter length in the range between 8 to 120");
+      return;
+    }
+
     setLoading(true);
     const pool = [
       includeAlphabets ? "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" : "",
@@ -24,14 +29,36 @@ export function PasswordGenerator() {
       includeSymbols ? "!@#$%^&*()_+-=[]{}|;:,.<>?/`~" : "",
     ].join("");
 
-    let password = "";
-    for (let i = 0; i < length; i++) {
-      password += pool[Math.floor(Math.random() * pool.length)];
-    }
-    setGenerated(password);
+    try {
+      const existing = await getAllPasswords();
+      const existingValues = existing.map(e => e.value);
 
-    await savePassword(password);
-    setLoading(false);
+      let password = "";
+      let attempts = 0;
+      const threshold = existing.length * 0.1;
+      const maxAttempts = threshold > 10 ? threshold : 10;
+
+      do {
+        password = "";
+        for (let i = 0; i < length; i++) {
+          password += pool[Math.floor(Math.random() * pool.length)];
+        }
+        attempts++;
+        if (attempts > maxAttempts) {
+          alert("Could not generate a unique password after 100 tries.");
+          setLoading(false);
+          return;
+        }
+      } while (existingValues.includes(password));
+
+      await savePassword(password);
+      setGenerated(password);
+    } catch (error) {
+      console.error("Error generating password", error);
+      alert("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -76,7 +103,8 @@ export function PasswordGenerator() {
       <button onClick={handleGenerate}>Generate Password</button>
       {generated && (
         <div className={styles.generatedPassword}>
-          <strong>Generated:</strong> {generated}
+          <span className={styles.generatedPasswordHeading}>Generated password:</span> 
+          <span className={styles.generatedPasswordText}>{generated}</span>
         </div>
       )}
     </div>

@@ -22,7 +22,7 @@ export function PasswordList() {
       {loading ? <Loader /> : (
         <ul>
           {passwords.map((pwd, idx) => (
-            <li key={idx}>{pwd}</li>
+            <li key={idx} >{pwd}</li>
           ))}
         </ul>
       )}
